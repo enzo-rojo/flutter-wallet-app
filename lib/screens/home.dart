@@ -15,19 +15,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // Variables
   double sizeSeparation = 25;
+  double totalBalance = 0.0;
+
+  // Lists
   List<CBCardModel> cardList = <CBCardModel>[
     CBCardModel(balance: 7230.12, cardNumber: 4567, expDate: '02/25'),
     CBCardModel(balance: 5700.24, cardNumber: 1234, expDate: '05/23'),
     CBCardModel(balance: 3000.24, cardNumber: 7891, expDate: '08/24')
   ];
-
   List<FriendModel> friendList = <FriendModel>[
     FriendModel(name: 'Olivia', pathAvatar: 'assets/images/friend_1.jpeg'),
     FriendModel(name: 'Liam', pathAvatar: 'assets/images/friend_2.jpg'),
     FriendModel(name: 'Sophia', pathAvatar: 'assets/images/friend_3.jpg'),
     FriendModel(name: 'James', pathAvatar: 'assets/images/friend_4.jpeg'),
   ];
+
+  // Functions
+  double sum(List<CBCardModel> list) {
+    double sum = 0;
+    for (var element in list) {
+      sum = sum + element.balance;
+    }
+    return sum;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    totalBalance = sum(cardList);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 5.0,
                 ),
-                Price(value: 98578.46, size: 1),
+                Price(value: totalBalance, size: 1),
                 SizedBox(
                   height: sizeSeparation,
                 ),
